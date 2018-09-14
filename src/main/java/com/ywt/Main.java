@@ -21,6 +21,9 @@ public class Main {
         }catch (InputMismatchException e){
             System.out.println("请输入数字。\n\n\n");
             main(args);
+        } catch (IOException e) {
+            System.out.println("文件创建失败");
+            main(args);
         }
     }
 }
