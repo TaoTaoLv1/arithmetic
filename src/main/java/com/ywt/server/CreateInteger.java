@@ -7,7 +7,11 @@ public class CreateInteger {
 
     private static final String[]  OPERATOR = {"+", "-", "*", "÷"};
 
-    //整数生成器
+    /**
+     * 整数生成器
+     * @param range
+     * @param var
+     */
     public void createProblem(int range ,PrintStream... var){
         Random random = new Random();
         int operatorCount = 1 + random.nextInt(3); //随机操作符的个数（1-3个）
@@ -49,6 +53,13 @@ public class CreateInteger {
         }
     }
 
+    /**
+     * 拼接式子
+     * @param operatorCount
+     * @param operand
+     * @param operatorIndex
+     * @return
+     */
     public String stitchingFormula(int operatorCount, int operand[], int[] operatorIndex){
         int bracketForm = new Random().nextInt(2);//式子形态
         StringBuffer formula = new StringBuffer();

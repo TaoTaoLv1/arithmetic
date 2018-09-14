@@ -11,8 +11,8 @@ public class CreateIntegerTest {
 //        for (int i : index) {
 //            System.out.println(i);
 //        }
-        for(int i = 0; i < 100; i++) {
-            createInteger.createProblem(100);
-        }
+//        for(int i = 0; i < 100; i++) {
+//            createInteger.createProblem(100);
+//        }
     }
 }
