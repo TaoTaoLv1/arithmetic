@@ -1,6 +1,8 @@
 package com.ywt.server;
 
 import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class CreateFraction {
@@ -12,7 +14,7 @@ public class CreateFraction {
      * @param range
      * @param var
      */
-    public void createProblem(int range ,PrintStream... var){
+    public Map<String, String> createProblem(int range){
         Random random = new Random();
         int operatorCount = 1 + random.nextInt(3); //操作符的个数1-3
 
@@ -57,7 +59,9 @@ public class CreateFraction {
 
         String res = shamToProperFraction(x, y);
 
-        s = s + "=" + res;
+        Map<String, String> formulaRes = new HashMap<>();
+        formulaRes.put(s, res);
+        return formulaRes;
     }
 
     /**

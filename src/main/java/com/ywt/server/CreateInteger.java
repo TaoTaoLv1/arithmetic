@@ -1,6 +1,7 @@
 package com.ywt.server;
 
-import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class CreateInteger {
@@ -10,9 +11,8 @@ public class CreateInteger {
     /**
      * 整数生成器
      * @param range
-     * @param var
      */
-    public void createProblem(int range ,PrintStream... var){
+    public Map<String, Integer> createProblem(int range){
         Random random = new Random();
         int operatorCount = 1 + random.nextInt(3); //随机操作符的个数（1-3个）
         int operand[] = new int[operatorCount + 1]; //操作数个数
@@ -23,8 +23,20 @@ public class CreateInteger {
         }
 
         String formula = stitchingFormula(operatorCount, operand, operatorIndex);
-        System.out.println(formula);
+
+        //计算结果
+        Calculator calculator = new Calculator();
+        int res = calculator.algorithm(formula);
+
+        Map<String, Integer> formulaRes = new HashMap<>();
+        if (res > 0){
+            formulaRes.put(formula, res);
+        }else {
+            createProblem(range);
+        }
+        return formulaRes;
     }
+
 
 
     /**
@@ -67,55 +79,96 @@ public class CreateInteger {
             case 1:
                 // 1+2型
                 formula.append(operand[0])
+                        .append(" ")
                         .append(OPERATOR[operatorIndex[0]])
-                        .append(operand[1]);
+                        .append(" ")
+                        .append(operand[1])
+                        .append(" ")
+                        .append("=");
                 break;
             case 2:{
                 // 1+2+3 型
                 if (bracketForm == 0){
                     formula.append(operand[0])
+                            .append(" ")
                             .append(OPERATOR[operatorIndex[0]])
+                            .append(" ")
                             .append(operand[1])
+                            .append(" ")
                             .append(OPERATOR[operatorIndex[1]])
-                            .append(operand[2]);
+                            .append(" ")
+                            .append(operand[2])
+                            .append(" ")
+                            .append("=");
 
                 }else {
                     //1+(2+3)型
                     formula.append(operand[0])
+                            .append(" ")
                             .append(OPERATOR[operatorIndex[0]])
+                            .append(" ")
                             .append("(")
+                            .append(" ")
                             .append(operand[1])
+                            .append(" ")
                             .append(OPERATOR[operatorIndex[1]])
+                            .append(" ")
                             .append(operand[2])
-                            .append(")");
+                            .append(" ")
+                            .append(")")
+                            .append(" ")
+                            .append("=");
                 }break;
             }
             case 3:{
                 if (bracketForm == 0){
                     //1+((2+3)-4)型
                     formula.append(operand[0])
+                            .append(" ")
                             .append(OPERATOR[operatorIndex[0]])
+                            .append(" ")
                             .append("((")
+                            .append(" ")
                             .append(operand[1])
+                            .append(" ")
                             .append(OPERATOR[operatorIndex[1]])
+                            .append(" ")
                             .append(operand[2])
+                            .append(" ")
                             .append(")")
+                            .append(" ")
                             .append(OPERATOR[operatorIndex[2]])
+                            .append(" ")
                             .append(operand[3])
-                            .append(")");
+                            .append(" ")
+                            .append(")")
+                            .append(" ")
+                            .append("=");
                 }else {
                     //(1+2)+(3+4)型
                     formula.append("(")
+                            .append(" ")
                             .append(operand[0])
+                            .append(" ")
                             .append(OPERATOR[operatorIndex[0]])
+                            .append(" ")
                             .append(operand[1])
+                            .append(" ")
                             .append(")")
+                            .append(" ")
                             .append(OPERATOR[operatorIndex[1]])
+                            .append(" ")
                             .append("(")
+                            .append(" ")
                             .append(operand[2])
+                            .append(" ")
                             .append(OPERATOR[operatorIndex[2]])
+                            .append(" ")
                             .append(operand[3])
-                            .append(")");
+                            .append(" ")
+                            .append(")")
+                            .append(" ")
+                            .append("=");
                 }break;
             }
         }

@@ -36,9 +36,9 @@ public class CommandController {
             for(int i = 0; i < num;i++){
                 int choose = random.nextInt(2);
                 if (choose == 0){
-                    createFraction.createProblem(range, exercisesPrintStream, answersPrintStream);
+                    createFraction.createProblem(range);
                 }else {
-                    createInteger.createProblem(range, exercisesPrintStream, answersPrintStream);
+                    createInteger.createProblem(range);
                 }
             }
 
