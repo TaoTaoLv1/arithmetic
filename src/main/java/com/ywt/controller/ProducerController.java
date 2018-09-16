@@ -1,5 +1,6 @@
 package com.ywt.controller;
 
+import com.ywt.Main;
 import com.ywt.server.CreateFraction;
 import com.ywt.server.CreateInteger;
 
@@ -7,9 +8,30 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.InputMismatchException;
 import java.util.Random;
+import java.util.Scanner;
 
-public class CommandController {
+public class ProducerController {
+
+    public void ConstructProblem(){
+        System.out.println("----------欢迎来到四则运算生成器----------\n");
+        try {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("请输入生成题目个数：");
+            int num = scanner.nextInt();
+            System.out.print("请输入最大自然数：");
+            int range = scanner.nextInt();
+
+            generateProblem(num, range);
+        }catch (InputMismatchException e){
+            System.out.println("请输入数字。\n\n\n");
+            ConstructProblem();
+        } catch (IOException e) {
+            System.out.println("文件创建失败");
+            ConstructProblem();
+        }
+    }
 
     /**
      * 输出到文件

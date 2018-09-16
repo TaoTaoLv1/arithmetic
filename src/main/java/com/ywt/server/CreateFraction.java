@@ -39,10 +39,16 @@ public class CreateFraction {
                 x = x * numy + y * numx;
                 y = y * numy;
             }else {   //减法
+                int count = 0;
                 while(x * numy - y * numx < 0){ //差为负数
                     coprimeNumber = createCoprimeNumbers(range, random);
                     numx = coprimeNumber[0];
                     numy = coprimeNumber[1];
+                    count++;
+                    if (count >= 5){
+                        numx = x - 1;
+                        numy = y;
+                    }
                 }
                 x = x * numy - y * numx;
                 y = y * numy;
