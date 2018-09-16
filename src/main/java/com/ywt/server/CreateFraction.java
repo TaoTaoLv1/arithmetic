@@ -12,9 +12,8 @@ public class CreateFraction {
     /**
      * 真分数生成器
      * @param range
-     * @param var
      */
-    public Map<String, String> createProblem(int range){
+    public String[] createProblem(int range){
         Random random = new Random();
         int operatorCount = 1 + random.nextInt(3); //操作符的个数1-3
 
@@ -58,9 +57,9 @@ public class CreateFraction {
         y /= greatFactor;
 
         String res = shamToProperFraction(x, y);
+        s += "=";
 
-        Map<String, String> formulaRes = new HashMap<>();
-        formulaRes.put(s, res);
+        String formulaRes[] = {s, res};
         return formulaRes;
     }
 

@@ -11,17 +11,17 @@ public class Calculator {
     public int algorithm(String s) {
         Stack<Integer> numStack = new Stack<>(); //放数字
         Stack<String> operatorStack = new Stack<>(); //放操作符
-        HashMap<String, Integer> hashmap = new HashMap<>(); //存放运算符优先级
-        hashmap.put("(", 0);
-        hashmap.put("+", 1);
-        hashmap.put("-", 1);
-        hashmap.put("*", 2);
-        hashmap.put("÷", 2);
+        HashMap<String, Integer> hashMap = new HashMap<>(); //存放运算符优先级
+        hashMap.put("(", 0);
+        hashMap.put("+", 1);
+        hashMap.put("-", 1);
+        hashMap.put("*", 2);
+        hashMap.put("÷", 2);
 
         String formula = s.replaceAll(" ", "");
 
         for (int i = 0; i < formula.length();) {
-            StringBuffer digit = new StringBuffer();  //StringBuffer类中的方法主要偏重于对于字符串的变化，例如追加、插入和删除等，这个也是StringBuffer和String类的主要区别。
+            StringBuilder digit = new StringBuilder();  //StringBuilder类中的方法主要偏重于对于字符串的变化，例如追加、插入和删除等，这个也是StringBuffer和String类的主要区别。
             char c = formula.charAt(i); //将式子字符串切割为c字符
             while (Character.isDigit(c)) { //判断字符是否为10进制数字,将一个数加入digit
                 digit.append(c);
@@ -43,10 +43,10 @@ public class Calculator {
                         while (!operatorStack.isEmpty() && !stmp.equals("(")) { //当前符号栈里面还有+ - * /
                             int a = numStack.pop();  //取操作数a,b
                             int b = numStack.pop();
-                            int sresulat = calculate(b, a, stmp); //计算
-                            if(sresulat<0)
+                            int result = calculate(b, a, stmp); //计算
+                            if(result < 0)
                                 return  -1;
-                            numStack.push(sresulat); //将结果压入栈
+                            numStack.push(result); //将结果压入栈
                             stmp = operatorStack.pop(); //符号指向下一个计算符号
                         }
                         break;
@@ -57,10 +57,10 @@ public class Calculator {
                             stmp = operatorStack.pop();
                             int a = numStack.pop();
                             int b = numStack.pop();
-                            int sresulat = calculate(b, a, stmp);
-                            if(sresulat<0)
+                            int result = calculate(b, a, stmp);
+                            if(result < 0)
                                 return  -1;
-                            numStack.push(sresulat);
+                            numStack.push(result);
                         }
                         break;
                     }
@@ -68,13 +68,13 @@ public class Calculator {
                         String stmp;
                         while (!operatorStack.isEmpty()) { //如果符号栈有符号
                             stmp = operatorStack.pop(); //当前符号栈，栈顶元素
-                            if (hashmap.get(stmp) >= hashmap.get(String.valueOf(c))) { //比较优先级
+                            if (hashMap.get(stmp) >= hashMap.get(String.valueOf(c))) { //比较优先级
                                 int a = numStack.pop();
                                 int b = numStack.pop();
-                                int sresulat =calculate (b, a, stmp);
-                                if(sresulat<0)
+                                int result =calculate (b, a, stmp);
+                                if(result < 0)
                                     return  -1;
-                                numStack.push(sresulat);
+                                numStack.push(result);
                             }
                             else {
                                 operatorStack.push(stmp);

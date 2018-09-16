@@ -1,7 +1,5 @@
 package com.ywt.server;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public class CreateInteger {
@@ -12,7 +10,7 @@ public class CreateInteger {
      * 整数生成器
      * @param range
      */
-    public Map<String, Integer> createProblem(int range){
+    public String[] createProblem(int range){
         Random random = new Random();
         int operatorCount = 1 + random.nextInt(3); //随机操作符的个数（1-3个）
         int operand[] = new int[operatorCount + 1]; //操作数个数
@@ -27,12 +25,13 @@ public class CreateInteger {
         //计算结果
         Calculator calculator = new Calculator();
         int res = calculator.algorithm(formula);
+        String formulaRes[] = new String[2];
 
-        Map<String, Integer> formulaRes = new HashMap<>();
         if (res > 0){
-            formulaRes.put(formula, res);
+            formulaRes[0] = formula;
+            formulaRes[1] = String.valueOf(res);
         }else {
-            createProblem(range);
+            return createProblem(range);
         }
         return formulaRes;
     }
@@ -74,7 +73,7 @@ public class CreateInteger {
      */
     public String stitchingFormula(int operatorCount, int operand[], int[] operatorIndex){
         int bracketForm = new Random().nextInt(2);//式子形态
-        StringBuffer formula = new StringBuffer();
+        StringBuilder formula = new StringBuilder();
         switch (operatorCount){
             case 1:
                 // 1+2型
