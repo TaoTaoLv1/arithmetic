@@ -14,50 +14,50 @@ public class CreateFraction {
      */
     public void createProblem(int range ,PrintStream... var){
         Random random = new Random();
-        int operatorCount = 1 + random.nextInt(2); //操作符的个数1-3
+        int operatorCount = 1 + random.nextInt(3); //操作符的个数1-3
 
         CreateInteger create = new CreateInteger();
         int[] operatorIndex = create.index(operatorCount,2, random); //操作符的下标
 
-        int[] coprimeNumbers = createCoprimeNumbers(range, random);
-        int x = coprimeNumbers[0];
-        int y = coprimeNumbers[1];
+        //生成第一个操作数
+        int[] coprimeNumber1 = createCoprimeNumbers(range, random);
+        int x = coprimeNumber1[0];
+        int y = coprimeNumber1[1];
 
-        String s = x+"/"+y;
+        String s = shamToProperFraction(x, y);
 
         for(int i=0; i < operatorCount; i++){
-            int numx = random.nextInt(range);
-            int numy = 1 + random.nextInt(range);
+            //生成剩下的操作数
+            int[] coprimeNumber = createCoprimeNumbers(range, random);
+            int numx = coprimeNumber[0];
+            int numy = coprimeNumber[1];
+
             String currentOpreator = OPERATOR[operatorIndex[i]];
 
             if(currentOpreator.equals("+")){  //加法
                 x = x * numy + y * numx;
                 y = y * numy;
-            }
-            else {   //减法
-                while(x*numy - y*numx < 0) //差为负数
-                {
-                    numx=random.nextInt(25);
-                    numy=1+random.nextInt(25);
-                    int greatFactor=greatFactor(numx,numy);
-                    numx /= greatFactor;
-                    numy /= greatFactor;
+            }else {   //减法
+                while(x * numy - y * numx < 0){ //差为负数
+                    coprimeNumber = createCoprimeNumbers(range, random);
+                    numx = coprimeNumber[0];
+                    numy = coprimeNumber[1];
                 }
-                x = x * numy - y*numx;
+                x = x * numy - y * numx;
                 y = y * numy;
             }
-            s += currentOpreator+numx+"/"+numy;
+
+            String num = shamToProperFraction(numx, numy);
+            s += currentOpreator + num;
         }
 
         int greatFactor = greatFactor(x,y);
-        x/=greatFactor; //最终结果化简
-        y/=greatFactor;
+        x /= greatFactor; //最终结果化简
+        y /= greatFactor;
 
-        if(x == 0) s+="="+x;
-        else if(x == 1 && y==1) s+="="+x;
-        else s+="="+x+"/"+y;
+        String res = shamToProperFraction(x, y);
 
-        System.out.println(s);
+        s = s + "=" + res;
     }
 
     /**
@@ -91,5 +91,29 @@ public class CreateFraction {
         y /= greatFactor;
         int numbers[] = {x, y};
         return numbers;
+    }
+
+    /**
+     * 假分数转化为真分数
+     * @param x 分子
+     * @param y 分母
+     * @return
+     */
+    public String shamToProperFraction(int x, int y){
+        if (x > y){
+            int n = x / y;
+            x = (x - n * y);
+            if (x == 0){
+                return String.valueOf(n);
+            }
+            return n + "'" + x + "/" + y;
+        }else if (x == y){
+            return "1";
+        }else if (y == 1){
+            return String.valueOf(x);
+        }else if (x == 0){
+            return "0";
+        }
+        return x + "/" + y;
     }
 }
