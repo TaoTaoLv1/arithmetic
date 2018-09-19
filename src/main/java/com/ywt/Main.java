@@ -3,8 +3,6 @@ package com.ywt;
 import com.ywt.controller.JudgeAnswerController;
 import com.ywt.controller.ProducerController;
 
-import java.io.IOException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {

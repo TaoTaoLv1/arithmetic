@@ -1,8 +1,5 @@
 package com.ywt.server;
 
-import java.io.PrintStream;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public class CreateFraction {

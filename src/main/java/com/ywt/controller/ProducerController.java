@@ -1,6 +1,5 @@
 package com.ywt.controller;
 
-import com.ywt.Main;
 import com.ywt.server.CreateFraction;
 import com.ywt.server.CreateInteger;
 
@@ -12,7 +11,7 @@ import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
-public class ProducerController {
+public class ProducerController{
 
     public void ConstructProblem(){
         System.out.println("----------欢迎来到四则运算生成器----------\n");
@@ -29,7 +28,6 @@ public class ProducerController {
             ConstructProblem();
         } catch (IOException e) {
             System.out.println("文件创建失败");
-            ConstructProblem();
         }
     }
 
@@ -60,16 +58,15 @@ public class ProducerController {
             CreateFraction createFraction = new CreateFraction();
             CreateInteger createInteger = new CreateInteger();
 
-
+            String[] problem = new String[2];
             for(int i = 1; i <= num; i++){
                 int choose = random.nextInt(2);
                 if (choose == 0){
-                    String[] problem = createFraction.createProblem(range);
-                    outputFile(i, problem, exercisesPrintStream, answersPrintStream);
+                    problem = createFraction.createProblem(range);
                 }else {
-                    String[] problem = createInteger.createProblem(range);
-                    outputFile(i, problem, exercisesPrintStream, answersPrintStream);
+                    problem = createInteger.createProblem(range);
                 }
+                outputFile(i, problem, exercisesPrintStream, answersPrintStream);
             }
 
             exercisesOutput.close();
@@ -77,7 +74,7 @@ public class ProducerController {
             exercisesPrintStream.close();
             answersPrintStream.close();
 
-            System.out.println("文件创建成功");
+            System.out.println("文件创建成功 ");
         }
     }
 

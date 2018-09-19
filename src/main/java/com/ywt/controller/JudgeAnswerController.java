@@ -21,9 +21,9 @@ public class JudgeAnswerController {
             List<String> correct = new ArrayList<>();
             List<String> wrong = new ArrayList<>();
 
-            int max = Math.max(exerciseAnswers.size(), answers.size());
+            int min = Math.min(exerciseAnswers.size(), answers.size());
             int num = 1;
-            for (int i = 0; i < max; i++){
+            for (int i = 0; i < min; i++){
                 if (exerciseAnswers.get(i).equals(answers.get(i))){
                     correct.add(String.valueOf(num++));
                 }else {
@@ -61,7 +61,7 @@ public class JudgeAnswerController {
         List<String> exerciseAnswers = new ArrayList<>();
         while ((exerciseAnswer = exerciseReader.readLine()) != null){
             String[] split = exerciseAnswer.split("=");
-            if (split[1] != null){
+            if (split.length >= 2){
                 exerciseAnswers.add(split[1]);
             }else {
                 exerciseAnswers.add(" ");
